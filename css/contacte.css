@@ -1,0 +1,36 @@
+/* FORMULARI =====================================*/
+
+form.contacte label {
+  width:7em;
+  display:inline-block;
+}
+form.contacte textarea {
+  width:30em;
+  height:10em;
+}
+form.contacte input[type="submit"] {
+  padding:0.5em 2em;
+}
+form.contacte fieldset {
+  width:10em;
+}
+
+/* TABLE =========================================*/
+
+table.contacte {
+  border-collapse:collapse;
+  margin:1em;
+}
+table.contacte tbody th, table.contacte tbody td {
+  border:1px solid #999;
+  padding:0.5em 1em;
+}
+table.contacte tbody th {
+  text-align:left;
+}
+table.contacte ul {
+  margin:0;
+  padding:0;
+  list-style-position:inside;
+}
+
