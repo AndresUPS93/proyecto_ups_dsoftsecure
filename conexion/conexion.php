@@ -1,7 +1,7 @@
 <?php
 
     $user="root";
-    $pass="";
+    $pass=getenv('MYSQL_SECURE_PASSWORD');
     $dbname="dbasu2019";
     
     /*En este caso el tipo es pgsql, además le indicamos el puerto */

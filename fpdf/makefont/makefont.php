@@ -430,7 +430,6 @@ function MakeFont($fontfile, $enc='cp1252', $embed=true, $subset=true)
 if(PHP_SAPI=='cli')
 {
 	// Command-line interface
-	ini_set('log_errors', '0');
 	if($argc==1)
 		die("Usage: php makefont.php fontfile [encoding] [embed] [subset]\n");
 	$fontfile = $argv[1];

@@ -5,7 +5,7 @@ class Conexion{
     function conexion(){
         try{
             $user="root";
-            $pass="";
+            $pass=getenv('MYSQL_SECURE_PASSWORD');
             $dbname="dbasu2019";
             $this->cone= new PDO("mysql:host=localhost;charset=UTF8;dbname=$dbname",$user,$pass);
             
