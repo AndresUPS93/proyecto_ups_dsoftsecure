@@ -66,11 +66,11 @@ and open the template in the editor.
                 //echo $usº uario," $clave" ;
                 require './Conexion/conexion.php';
              
-                $existenciausql=("SELECT COUNT(*) FROM tb_animador where usuario='$usuario' and clave='$clave';");
+                $existenciausql=("SELECT COUNT(*) FROM tb_animador where usuario='$usuario' ");
                 $stmt1= $conexion->prepare($existenciausql);
                 $stmt1->execute();
                 
-                $existenciausql1=("SELECT COUNT(*) FROM tb_coordinador where usuario='$usuario' and clave='$clave';");
+                $existenciausql1=("SELECT COUNT(*) FROM tb_coordinador where usuario='$usuario' ");
                 $stmt11= $conexion->prepare($existenciausql1);
                 $stmt11->execute();
                 
@@ -88,7 +88,8 @@ and open the template in the editor.
                     }
                    else{
                      echo "<script> alert(\"No existe el usuario o la contraseña es incorrecta\"); </script>";
-                }
+                    }
+                    
             }
         ?>
         </form>

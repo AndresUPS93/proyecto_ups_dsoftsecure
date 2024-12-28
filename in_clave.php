@@ -1,8 +1,7 @@
 <?php
-require './Clases/Actividad.php';
-$Actividad= new Actividad();
+require './Clases/Usuario.php';
+$Usuario= new Usuario();
 ?>
-
 <?PHP
 
     session_start();
@@ -20,24 +19,28 @@ $Actividad= new Actividad();
             $sql="select * from tb_animador where usuario='$username'";
             $mos=$conexion->query($sql);
             
-            foreach ($mos as $re){$da="$re[2] $re[3]"; $id=$re[0]; $ca=$re[0];}
+            foreach ($mos as $re){$da="$re[2] $re[3]"; $id=$re[0]; $ca=$re[0];}            
+           
 
 ?>
+
+
 <html>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1"> 
-       <title> Insertar Actividad </title>
-        <link rel="stylesheet" type="text/css" href="css/estils5.css" />
-        <link rel="stylesheet" type="text/css" href="css/contacte.css" />
-        <link rel="stylesheet"  href="css/formu.css" type="text/css" />
-        
-        
+<head>
+   <meta charset="UTF-8">
+    <title> Insertar Estudiante </title>
+    
+    <link rel="stylesheet" type="text/css" href="css/contacte.css" />
+    <link rel="stylesheet"  href="css/formu.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/estils5.css" />
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estilo.css" type="text/css" />
         
-<style>
+        <style>
       .navbar-inverse {
     background-color: #12457a;
     border-color: white;
@@ -62,14 +65,14 @@ $Actividad= new Actividad();
     background-color: gray;
 }
 
-  </style>        
-        
-        
-        
-        
-    </head>
-    <body>
-      <div id="header">
+  </style>
+
+
+
+</head>
+
+<body>
+    <div id="header">
 
             <a href="#">
             <img
@@ -99,13 +102,14 @@ $Actividad= new Actividad();
         <ul class="dropdown-menu">
             <li><a href="in_estudiante.php">Estudiante</a></li>
             <li><a href="in_actividad.php">Actividad</a></li>
+            <li><a href="in_estado_estudiante.php">Cambiar Estado de Estudiante</a></li>
           
         </ul>
       </li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mostrar <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="mostrar_integrantes.php">Estudiantes</a></li>
-          
+         
           <li><a href="generar_certificado.php">Certificados</a></li>
           
         </ul>
@@ -124,78 +128,89 @@ $Actividad= new Actividad();
   </div>
 </nav>
         
-        <div class="container">
+    <div class="container">
+        
+            <center><h3>Cambio de Contraseña</h3></center>
+                <?php
+                if(!isset($_SESSION['usuario'])){
+                    header("location:index.php");
+                    exit();
+                }  
+                require './conexion/conexion.php';
+                
+                ?>
+        
+        <form method="POST" class="form" align="center" enctype="multipart/form-data">
+            <label>Clave Actual</label>
+            <input type="password" class="form-control" placeholder=" Clave *" required="true" name="clave_old"/>
 
-      <div id="content">
-          <center><h3>Datos de la Actividad</h3></center>
-        <?php
-        
-    
-        
-        if(!isset($_SESSION['usuario'])){
-            header("location:index.php");
-            exit();
-        }  
-            require './Conexion/conexion.php';
-            $sql="select * from tb_carrera";
-            $mos=$conexion->query($sql);
+            <label>Clave Nueva</label>
+            <input type="password" class="form-control" placeholder=" Clave *" required="true" name="clave_new"/>
+
+
             
-            //$sql1="select id_grupo,nombre_grupo from tb_grupo";
-            //$mos1=$conexion->query($sql1);
-        ?>
-        
-        <form method="POST" class="form" align="center">
-            
-            <label> Nombre de Actividad:</label>
-            <input type="text" name="nombre" required="true">  
-                   
-            <label> Fecha:</label>
-            <input type="date" name="fecha" required="true">  
-                     
-            <label>Lugar:</label>
-            <input type="text" name="lugar"  required="true">
-          
             <br><br>
-            <button type="submit" >Registrar Actividad</button>
+            <button type="submit" class="btn-primary" >Actualizar</button>
                 
         </form>
-          <br>
-          <center>
-          <a href="in_actividad2.php"><img src="img/ai.png" width="80" height="80">Añadir Participantes </a>
-          </center>
           </div>
         <?php
-            $usernameSesion = $_SESSION['usuario'];
+        
+        
+        //require './Conexion/conexion.php';
+        $usernameSesion = $_SESSION['usuario'];
             //asegurar que no tenga "", <, > o &
-            $username = htmlspecialchars($usernameSesion);
-            
-        //SELECCION DE ID-GRUPO
-        $sql1="select id_animador from tb_animador where usuario='$username'";
-        $ar1=$conexion->query($sql1);
-        
-        foreach($ar1 as $id){
-            $id_animador=$id[0]; //id_animador
-        }
-        $sql2="select id_grupo from tb_grupo where id_animador=$id_animador";
-        $ar2=$conexion->query($sql2);
-        foreach($ar2 as $idg){    
-                $id_grupo=$idg[0]; //id_grupo
-        }
+        $username = htmlspecialchars($usernameSesion);
+
         if($_POST){
-            $nombre=$_POST['nombre'];
-            $fecha=$_POST['fecha'];
-            $lugar=$_POST['lugar'];
-            $Actividad->insertarActividad($id_grupo, $nombre, $fecha, $lugar);
+            $clave_old=$_POST['clave_old'];
+            $clave_new=$_POST['clave_new'];
             
+            $msj=$Usuario->actualizarUsuario($clave_old, $clave_new, $username);
+            echo $msj;
+        }
+              
+        
+        
+            
+        ?>
+            <!--<a href="http://localhost/GruposASU/in_historico.php/?variable1=$grupo">Siguiente</a>;-->
+          
+            
+
+        
+        
+           
+        
+</body>
+
+<script type="text/javascript">
+function justNumbers(e)
+        {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
         }
         
-        ?>
-      
-            
-            </div>
-        
-        
-            
-        
-    </body>
+function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+ </script>
 </html>

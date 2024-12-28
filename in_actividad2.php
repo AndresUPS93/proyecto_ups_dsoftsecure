@@ -123,7 +123,6 @@ and open the template in the editor.
         <ul class="dropdown-menu">
             <li><a href="in_estudiante.php">Estudiante</a></li>
             <li><a href="in_actividad.php">Actividad</a></li>
-            <li><a href="in_estado_estudiante.php">Cambiar Estado de Estudiante</a></li>
           
         </ul>
       </li>
@@ -132,6 +131,12 @@ and open the template in the editor.
             <li><a href="mostrar_integrantes.php">Estudiantes</a></li>
           
           <li><a href="generar_certificado.php">Certificados</a></li>
+          
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Seguridad<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="in_clave.php">Actualizar Contraseña</a></li>
           
         </ul>
       </li>
