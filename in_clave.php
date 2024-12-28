@@ -1,8 +1,6 @@
 <?php
-require './Clases/Carrera.php';
-require './Clases/Estudiante.php';
-$Carrera= new Carrera();
-$Estudiante= new Estudiante();
+require './Clases/Usuario.php';
+$Usuario= new Usuario();
 ?>
 <?PHP
 
@@ -21,7 +19,8 @@ $Estudiante= new Estudiante();
             $sql="select * from tb_animador where usuario='$username'";
             $mos=$conexion->query($sql);
             
-            foreach ($mos as $re){$da="$re[2] $re[3]"; $id=$re[0]; $ca=$re[0];}
+            foreach ($mos as $re){$da="$re[2] $re[3]"; $id=$re[0]; $ca=$re[0];}            
+           
 
 ?>
 
@@ -37,8 +36,8 @@ $Estudiante= new Estudiante();
     
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estilo.css" type="text/css" />
         
         <style>
@@ -102,7 +101,9 @@ $Estudiante= new Estudiante();
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Insertar <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="in_estudiante.php">Estudiante</a></li>
-            <li><a href="in_actividad.php">Actividad</a></li>          
+            <li><a href="in_actividad.php">Actividad</a></li>
+
+          
         </ul>
       </li>
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mostrar <span class="caret"></span></a>
@@ -129,7 +130,7 @@ $Estudiante= new Estudiante();
         
     <div class="container">
         
-            <center><h3>Datos del Estudiante</h3></center>
+            <center><h3>Cambio de Contraseña</h3></center>
                 <?php
                 if(!isset($_SESSION['usuario'])){
                     header("location:index.php");
@@ -140,61 +141,16 @@ $Estudiante= new Estudiante();
                 ?>
         
         <form method="POST" class="form" align="center" enctype="multipart/form-data">
-            <label>Carrera</label>
-            <select name="carrera" class="custom-select" style="width:200px">
-                <?php
-                 $combo= $Carrera->MostrarCmbCarerra();
-                 echo $combo;
-                ?>
-             </select>
-            <br><br>
+            <label>Clave Actual</label>
+            <input type="password" class="form-control" placeholder=" Clave *" required="true" name="clave_old"/>
+
+            <label>Clave Nueva</label>
+            <input type="password" class="form-control" placeholder=" Clave *" required="true" name="clave_new"/>
+
+
             
-            <label>Cédula</label>
-            <input type="text" name="cedula" required="true" autofocus="" maxlength="10" onkeypress="return justNumbers(event);">  
-
-            <label> Nombres</label>
-            <input type="text" name="nombres" required="true" onkeypress="return soloLetras(event);">  
-
-            <label> Apelidos</label>
-            <input type="text" name="apellidos" required="true" onkeypress="return soloLetras(event);">  
-
-            <label>Teléfono</label>
-            <input type="text" name="tel" maxlength="9" onkeypress="return justNumbers(event);">
-
-            <label>Celular</label>
-            <input type="text" name="cel" required="true" maxlength="10" onkeypress="return justNumbers(event);">
-
-            <label>Correo</label>
-            <input type="text" name="correo" required="true">
-
-            <label>Nivel</label>
-            <select name="niv" class="custom-select" style="width:200px">
-               echo "<option value="1">1</option>"; 
-               echo "<option value="2">2</option>"; 
-               echo "<option value="3">3</option>"; 
-               echo "<option value="4">4</option>"; 
-               echo "<option value="5">5</option>"; 
-               echo "<option value="6">6</option>"; 
-               echo "<option value="7">7</option>"; 
-               echo "<option value="8">8</option>"; 
-               echo "<option value="9">9</option>"; 
-               echo "<option value="10">10</option>"; 
-            </select>
-            <br><br> 
-                   
-            <label>Rol</label>
-            <select name="rol" class="custom-select" style="width:200px">
-                echo "<option value="Integrante">Integrante</option>"; 
-                echo "<option value="Coordinador">Coordinador</option>";
-                echo "<option value="Subcoordinador">Subcoordinador</option>";
-            </select>
             <br><br>
-                    
-            <label>Foto</label>
-            <input type="file" name="foto" required="true"> 
-
-            <br><br>
-            <button type="submit" class="btn-primary" >Registrar Estudiante</button>
+            <button type="submit" class="btn-primary" >Actualizar</button>
                 
         </form>
           </div>
@@ -205,38 +161,15 @@ $Estudiante= new Estudiante();
         $usernameSesion = $_SESSION['usuario'];
             //asegurar que no tenga "", <, > o &
         $username = htmlspecialchars($usernameSesion);
+
+        if($_POST){
+            $clave_old=$_POST['clave_old'];
+            $clave_new=$_POST['clave_new'];
             
-        //SELECCION DE ID-GRUPO
-        $sql1="select id_animador from tb_animador where usuario='$username'";
-        $ar1=$conexion->query($sql1);
-        
-        foreach($ar1 as $id){
-            
-            $sql2="select id_grupo from tb_grupo where id_animador=$id[0]";
-            $ar2=$conexion->query($sql2);
-            
-            foreach($ar2 as $idg){
-            
-                if($_POST){
-                $carrera=$_POST['carrera'];
-              
-                $cedu=$_POST['cedula'];
-                $nom=$_POST['nombres'];
-                $ape=$_POST['apellidos'];
-                $tel=$_POST['tel'];
-                $cel=$_POST['cel'];
-                $correo=$_POST['correo'];
-                $niv=$_POST['niv'];
-                $rol=$_POST['rol'];
-                $foto = $_FILES['foto']["name"];
-                $ruta = $_FILES['foto']["tmp_name"];
-                $destino = "fotos/".$foto ;
-                copy($ruta,$destino);
-                $Estudiante->insertarEstudiante($idg[0], $carrera, $cedu, $nom,$ape, $tel, $cel, $correo, $niv, $rol, $destino);
-                
-                }
-            }
+            $msj=$Usuario->actualizarUsuario($clave_old, $clave_new, $username);
+            echo $msj;
         }
+              
         
         
             

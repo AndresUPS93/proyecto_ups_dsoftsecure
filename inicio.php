@@ -116,6 +116,12 @@ and open the template in the editor.
           
         </ul>
       </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Seguridad<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="in_clave.php">Actualizar Contraseña</a></li>
+          
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Bienvenido/a <?php echo $da;?> </a></li>

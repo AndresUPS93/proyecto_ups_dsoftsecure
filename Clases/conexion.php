@@ -28,5 +28,16 @@ class Conexion{
         } 
         return $mensa;
     }
+
+    function actualizar($sql){
+        $inser=$this->cone->prepare($sql);
+        $mensa="";
+        if($inser->execute()){
+            $mensa= "<script> alert(\"Los datos se han actulizado con éxito\"); </script>";
+        } else {
+            $mensa="<script> alert(\"Error-->Revise los datos ingresados\"); </script>";
+        } 
+        return $mensa;
+    }
     
 }
