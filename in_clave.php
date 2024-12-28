@@ -102,7 +102,7 @@ $Usuario= new Usuario();
         <ul class="dropdown-menu">
             <li><a href="in_estudiante.php">Estudiante</a></li>
             <li><a href="in_actividad.php">Actividad</a></li>
-            <li><a href="in_estado_estudiante.php">Cambiar Estado de Estudiante</a></li>
+
           
         </ul>
       </li>
