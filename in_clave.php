@@ -1,5 +1,5 @@
 <?php
-require './Clases/Usuario.php';
+require_once './Clases/Usuario.php';
 $Usuario= new Usuario();
 ?>
 <?PHP
@@ -11,7 +11,7 @@ $Usuario= new Usuario();
             exit();
         }
         
-        require './Conexion/conexion.php';
+        require_once './Conexion/conexion.php';
             $usernameSesion = $_SESSION['usuario'];
             //asegurar que no tenga "", <, > o &
             $username = htmlspecialchars($usernameSesion);
@@ -24,8 +24,8 @@ $Usuario= new Usuario();
 
 ?>
 
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
    <meta charset="UTF-8">
     <title> Insertar Estudiante </title>
@@ -36,8 +36,8 @@ $Usuario= new Usuario();
     
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js" integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/estilo.css" type="text/css" />
         
         <style>
@@ -130,13 +130,13 @@ $Usuario= new Usuario();
         
     <div class="container">
         
-            <center><h3>Cambio de Contraseña</h3></center>
+            <div class="center"><h3>Cambio de Contraseña</h3></div>
                 <?php
                 if(!isset($_SESSION['usuario'])){
                     header("location:index.php");
                     exit();
                 }  
-                require './conexion/conexion.php';
+                require_once './conexion/conexion.php';
                 
                 ?>
         

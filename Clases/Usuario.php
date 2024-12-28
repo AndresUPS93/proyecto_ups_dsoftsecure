@@ -6,22 +6,22 @@ class Usuario
     public $nombre_usuario;
     public $clave;
 
-    function getNombreUsuario(){
+    public function getNombreUsuario(){
         return $this->nombre_usuario;
     }
-    function getClave(){
+    public function getClave(){
         return $this->clave;
     }
 
-    function setNombreUsuario($nombre) {
+    public function setNombreUsuario($nombre) {
         $this->nombre_usuario = $nombre;
     }
 
-    function setClave($clave) {
+    public function setClave($clave) {
         $this->clave = $clave;
     }
 
-    function actualizarUsuario($clave_old, $clave_new, $usuario){
+    public function actualizarUsuario($clave_old, $clave_new, $usuario){
         require_once'conexion.php';
         $db= new Conexion();
         $db->conexion();

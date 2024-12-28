@@ -2,7 +2,7 @@
 
 class Conexion{  
     private $cone="";
-    function conexion(){
+    public function conexion(){
         try{
             $user="root";
             $pass=getenv('MYSQL_SECURE_PASSWORD');
@@ -14,11 +14,11 @@ class Conexion{
         }
     }
     
-    function mostrar($sql){
+    public function mostrar($sql){
         $mostrar=$this->cone->query($sql);
         return $mostrar;
     }
-    function insertar($sql){
+    public function insertar($sql){
         $inser=$this->cone->prepare($sql);
         $mensa="";
         if($inser->execute()){
@@ -29,7 +29,7 @@ class Conexion{
         return $mensa;
     }
 
-    function actualizar($sql){
+    public function actualizar($sql){
         $inser=$this->cone->prepare($sql);
         $mensa="";
         if($inser->execute()){
